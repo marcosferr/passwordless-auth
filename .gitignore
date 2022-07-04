@@ -1,5 +1,0 @@
-myvenv/
-.env 
-migrations/
-*.pyc 
-*__init__.py

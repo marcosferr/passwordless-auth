@@ -18,7 +18,7 @@ class RegisterForm(forms.Form):
         email = self.cleaned_data.get('email')
         user_details = User.objects.filter(email=email)
         if user_details.exists():
-            raise forms.ValidationError("Already a account with is email , please try logging in!")
+            raise forms.ValidationError("There is already an account with this email , please try logging in!")
         return email
     
     def clean_phone_number(self):
@@ -26,6 +26,7 @@ class RegisterForm(forms.Form):
         user_details = User.objects.filter(phone_number=phone_number)
         if user_details.exists():
             raise forms.ValidationError("An account with this phone number already exists! Please try registering using a different phone number or try logging in!")
+        return phone_number
     
 
 class LoginForm(forms.Form):

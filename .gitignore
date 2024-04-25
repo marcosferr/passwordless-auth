@@ -30,8 +30,7 @@ media/
 venv/
 env/
 
-# Pip freeze output
-requirements.txt
+
 
 # Other OS generated files
 thumbs.db

@@ -19,7 +19,7 @@ coverage.xml
 
 # Test leftovers
 *.log
-*.txt
+
 
 # Static and Media files
 # Adjust these to match your project structure

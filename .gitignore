@@ -1,0 +1,38 @@
+# IDE and OS specific files
+*.pyc
+__pycache__/
+*.pyo
+*.egg-info/
+.idea/
+.vscode/
+
+# Database files
+db.sqlite3
+env.db
+
+# Local configuration
+local_settings.py
+
+# Coverage reports
+.coverage
+coverage.xml
+
+# Test leftovers
+*.log
+*.txt
+
+# Static and Media files
+# Adjust these to match your project structure
+static/
+media/
+
+# Virtual environment
+venv/
+env/
+
+# Pip freeze output
+requirements.txt
+
+# Other OS generated files
+thumbs.db
+.DS_Store

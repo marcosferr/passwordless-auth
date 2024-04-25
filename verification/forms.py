@@ -30,13 +30,13 @@ class RegisterForm(forms.Form):
     
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label="Email")
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        user_details = User.objects.filter(email=email)
+    phone_number = forms.CharField(label="Phone number")
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get('phone_number')
+        user_details = User.objects.filter(phone_number=phone_number)
         if not user_details.exists():
             raise forms.ValidationError("No account exists with this email. Try registering")
-        return email
+        return phone_number
     
 
 

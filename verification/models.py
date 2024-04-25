@@ -41,13 +41,14 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=150, unique=True)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Please enter a valid phone number")
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, null=True) 
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, unique=True) 
+    otp = models.CharField(max_length=6)
+    is_verified = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
-    
     objects = NewUserAccountManager()
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'phone_number']
+    USERNAME_FIELD = 'phone_number'
+    REQUIRED_FIELDS = ['username', 'email']
 
     def __str__(self):
         return self.email

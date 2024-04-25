@@ -30,12 +30,12 @@ def login_page(request):
     }
     if form.is_valid():
         print(form.cleaned_data)
-        email = form.cleaned_data.get('email')
+        phone_number = form.cleaned_data.get('phone_number')
         try:
-            new = User.objects.get(email=email)
+            new = User.objects.get(phone_number=phone_number)
             ## if user exists
-            ##first: send otp to the user 
-            SendOTP.send_code(email)
+            ##first: send otp to the user    Aca enviamos el codigo a el usuario
+            SendOTP.send_code(phone_number=phone_number)
             ##second:redirect to the page to enter otp 
             temp = uuid.uuid4()
             return redirect("/otp/{}/{}".format(new.pk, temp))
@@ -44,19 +44,21 @@ def login_page(request):
     
     return render(request, "auth/login.html", context)
 
-
+# Generar nuevos codigos OTP para el usuario. 
 def generate_otp(request, pk, uuid):
 
     return render(request, 'otp.html' )
 
 
 def check_otp(request):
-    otp =request.POST.get("secret")
-    email = request.POST.get("email")
-    otp_status= CheckOTP.check_otp(email, otp) 
-    if otp_status == "approved":
-        user = authenticate(request, email=email) 
-        print(user)
+    otp =request.POST.get("otp")
+    phone_number = request.POST.get("phone_number")
+    print('Phone number received by form ' , phone_number, 'type:', type(phone_number))
+    print('otp received by form', otp, 'type', type(otp))
+    otp_status= CheckOTP.check_otp(phone_number, otp) 
+    if otp_status == True:
+        user = authenticate(request, phone_number=phone_number) 
+        print(user, "Usuario autenticado a traves de OTP")
         if user is not None:
            login(request, user, backend='verification.auth_backend.PasswordlessAuthBackend')
            return redirect("/home")
